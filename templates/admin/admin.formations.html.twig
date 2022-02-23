@@ -1,0 +1,44 @@
+{% extends "baseadmin.html.twig" %}
+
+{% block body %}
+
+ <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Formation
+                </th>
+                <th>
+                    Niveau
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for formation in formations %}
+                <tr>
+                    <td>
+                        <h5 class="text-primary">
+                            {{ formation.title }}
+                        </h5>
+                    </td>
+                    <td>
+                        {{ formation.niveau.niveau }}
+                    </td>
+                    <td>
+                        {{ formation.publishedatstring }}
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-secondary">Editer</a>
+                        <a href="#" class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>   
+{% endblock %}

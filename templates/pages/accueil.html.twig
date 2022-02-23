@@ -31,6 +31,20 @@
                                 <h4 class="text-info mt-1">
                                     {{ formation.title }}
                                 </h4>
+                                <p class="mt-2"><strong>Niveau :</strong></p>
+				   {% if formation.niveau.niveau == "Difficile" %}
+                                        <div class="text-danger">
+                                                {{ formation.niveau.niveau }}
+				        </div>
+				   {% elseif formation.niveau.niveau == "Moyen" %}
+					<div class="text-warning">
+						{{ formation.niveau.niveau }}
+				        </div>
+				   {% else %}   
+                                       <div class="text-success">
+						{{ formation.niveau.niveau }}
+				        </div>
+                                   {% endif %} 
                             </div>    
                         </div>                    
                     </td>
