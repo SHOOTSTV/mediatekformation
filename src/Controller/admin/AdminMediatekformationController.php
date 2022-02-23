@@ -8,11 +8,12 @@
 
 namespace App\Controller\admin;
 
+use App\Entity\Formation;
+use App\Repository\FormationRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\FormationRepository;
 
 /**
  * Description of AdminMediatekformationController
@@ -26,13 +27,21 @@ class AdminMediatekformationController extends AbstractController {
      * @var FormationRepository
      */
     private $repository;
+    
+    /**
+     *
+     * @var EntityManagerInterface
+     */
+    private $om;
 
     /**
      * 
      * @param FormationRepository $repository
+     * @param EntityManagerInterface $om
      */
-    function __construct(FormationRepository $repository) {
+    public function __construct(FormationRepository $repository, EntityManagerInterface $om) {
         $this->repository = $repository;
+        $this->om = $om;
     }
 
     /**
@@ -45,4 +54,15 @@ class AdminMediatekformationController extends AbstractController {
             'formations' => $formations
         ]);
     }
+    
+    /**
+     * @Route("/admin/suppr/{id}", name="admin.formation.suppr")
+     * @param Formation $formation
+     * @return Response
+     */
+    public function suppr(Formation $formation): Response{
+        $this->om->remove($formation);
+        $this->om->flush();
+        return $this->redirectToRoute('admin.formations');
+    }    
 }
