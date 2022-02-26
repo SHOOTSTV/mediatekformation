@@ -16,10 +16,12 @@ class FormationType extends AbstractType
     {
         $builder
             ->add('publishedAt', null, [
-                'label' => 'Date de création :'
+                'label' => 'Date de création :',
+                'required' => true
             ])
             ->add('title', null, [
-                'label' => 'Titre :'
+                'label' => 'Titre :',
+                'required' => true
             ])
             ->add('description', null, [
                 'label' => 'Description :'
@@ -33,7 +35,7 @@ class FormationType extends AbstractType
                 'class' => Niveau::class,
                 'choice_label' => 'niveau',
                 'multiple' => false,
-                'required' => false,
+                'required' => true,
                 'label' => 'Niveau :'
             ])            
             ->add('submit', SubmitType::class, [

@@ -64,7 +64,7 @@ class FormationsController extends AbstractController {
         if($this->isCsrfTokenValid('filtre_'.$champ, $request->get('_token'))){
             $valeur = $request->get("recherche");
             $formations = $this->repository->findByContainValue($champ, $valeur);
-            return $this->render(self::PAGEFORMATIONS, [
+            return $this->render("pages/formations.html.twig", [
                 'formations' => $formations
             ]);
         }
