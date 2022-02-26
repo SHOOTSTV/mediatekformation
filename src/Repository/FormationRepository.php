@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Formation;
+use App\Entity\Niveau;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -48,14 +50,37 @@ class FormationRepository extends ServiceEntityRepository
         }else{
             return $this->createQueryBuilder('f')
                     ->where('f.'.$champ.' LIKE :valeur')
-                    ->setParameter('valeur', $valeur)
                     ->orderBy('f.publishedAt', 'DESC')
                     ->setParameter('valeur', '%'.$valeur.'%')
                     ->getQuery()
                     ->getResult();            
         }
     }
-        
+
+        /**
+     * Enregistrements dont un champ contientune valeur
+     * ou tous les enregistrements si la valeur est vide
+     * @param type $champ
+     * @param type $valeur
+     * @return array
+     */
+    public function findByNiveau($champ, $valeur): array{
+        if($valeur==""){
+            return $this->createQueryBuilder('f')
+                    ->orderBy('f.'.$champ, 'ASC')
+                    ->getQuery()
+                    ->getResult();
+        }else{
+            return $this->createQueryBuilder('f')
+                    ->leftJoin(Niveau::class, "n", Join::WITH, "f.".$champ." =n.id")
+                    ->where('n.niveau LIKE :valeur')
+                    ->orderBy('f.publishedAt', 'DESC')
+                    ->setParameter('valeur', '%'.$valeur.'%')
+                    ->getQuery()
+                    ->getResult();            
+        }
+    }
+    
     /**
      * Retourne les n formations les plus récentes
      * @param type $nb

@@ -1,11 +1,11 @@
 <?php
 namespace App\Controller;
 
+use App\Repository\FormationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\FormationRepository;
 
 /**
  * Description of FormationsController
@@ -70,6 +70,23 @@ class FormationsController extends AbstractController {
         }
         return $this->redirectToRoute("formations");
     }  
+
+    /**
+     * @Route("/formations/recherche/niveau/{champ}", name="formations.findallbyniveau")
+     * @param type $champ
+     * @param Request $request
+     * @return Response
+     */
+    public function findAllbyNiveau($champ, Request $request): Response{
+        if($this->isCsrfTokenValid('filtre_'.$champ, $request->get('_token'))){
+            $valeur = $request->get("recherche");
+            $formations = $this->repository->findByNiveau($champ, $valeur);
+            return $this->render("pages/formations.html.twig", [
+                'formations' => $formations
+            ]);
+        }
+        return $this->redirectToRoute("formations");
+    } 
     
     /**
      * @Route("/formations/formation/{id}", name="formations.showone")
