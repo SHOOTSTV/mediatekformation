@@ -4,7 +4,7 @@
         <thead>
             <tr>
                 <th class="text-left align-top" scope="col">
-                    titre
+                    Titre :
                     <a href="{{ path('formations.sort', {champ:'title', ordre:'DESC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true"><</a>
                     <a href="{{ path('formations.sort', {champ:'title', ordre:'ASC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true">></a>
                     <form class="form-inline mt-1" method="POST" action="{{ path('formations.findallcontain', {champ:'title'}) }}">
@@ -15,7 +15,8 @@
                         <button type="submit" class="btn btn-info mb-2 btn-sm">filtrer</button>
                     </form>
                 </th>
-                <th class="text-center align-top" scope="col">
+                <th class="text-left align-top" scope="col">
+                    Niveau :
                     <a href="{{ path('formations.sort', {champ:'niveau', ordre:'DESC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true"><</a>
                     <a href="{{ path('formations.sort', {champ:'niveau', ordre:'ASC'}) }}" class="btn btn-info btn-sm active" role="button" aria-pressed="true">></a>                                                                              
                     <form class="form-inline mt-1" method="POST" action="{{ path('formations.findallbyniveau', {champ:'niveau'}) }}">
