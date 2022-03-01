@@ -55,7 +55,7 @@ class FormationsController extends AbstractController {
     }
 
     /**
-     * @Route("/formations/tri/{champ}/{ordre}", name="formations.sort")
+     * @Route("admin/admin.formations/tri/{champ}/{ordre}", name="adminformations.sort")
      * @param type $champ
      * @param type $ordre
      * @return Response
