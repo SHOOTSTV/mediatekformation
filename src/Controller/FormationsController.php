@@ -52,7 +52,20 @@ class FormationsController extends AbstractController {
         return $this->render(self::PAGEFORMATIONS, [
            'formations' => $formations
         ]);
-    }   
+    }
+
+    /**
+     * @Route("/formations/tri/{champ}/{ordre}", name="formations.sort")
+     * @param type $champ
+     * @param type $ordre
+     * @return Response
+     */
+    public function sortAdmin($champ, $ordre): Response{
+        $formations = $this->repository->findAllOrderBy($champ, $ordre);
+        return $this->render("admin/admin.formations.html.twig" ,[
+           'formations' => $formations
+        ]);
+    }    
         
     /**
      * @Route("/formations/recherche/{champ}", name="formations.findallcontain")
@@ -72,6 +85,23 @@ class FormationsController extends AbstractController {
     }  
 
     /**
+     * @Route("/formations/recherche/{champ}", name="formations.findallcontain")
+     * @param type $champ
+     * @param Request $request
+     * @return Response
+     */
+    public function findAllContainAdmin($champ, Request $request): Response{
+        if($this->isCsrfTokenValid('filtre_'.$champ, $request->get('_token'))){
+            $valeur = $request->get("recherche");
+            $formations = $this->repository->findByContainValue($champ, $valeur);
+            return $this->render("admin/admin.formations.html.twig", [
+                'formations' => $formations
+            ]);
+        }
+        return $this->redirectToRoute("formations");
+    } 
+
+    /**
      * @Route("/formations/recherche/niveau/{champ}", name="formations.findallbyniveau")
      * @param type $champ
      * @param Request $request
@@ -86,7 +116,24 @@ class FormationsController extends AbstractController {
             ]);
         }
         return $this->redirectToRoute("formations");
-    } 
+    }
+    
+    /**
+     * @Route("/formations/recherche/niveau/{champ}", name="formations.findallbyniveau")
+     * @param type $champ
+     * @param Request $request
+     * @return Response
+     */
+    public function findAllbyNiveauAdmin($champ, Request $request): Response{
+        if($this->isCsrfTokenValid('filtre_'.$champ, $request->get('_token'))){
+            $valeur = $request->get("recherche");
+            $formations = $this->repository->findByNiveau($champ, $valeur);
+            return $this->render("admin/admin.formations.html.twig", [
+                'formations' => $formations
+            ]);
+        }
+        return $this->redirectToRoute("formations");
+    }
     
     /**
      * @Route("/formations/formation/{id}", name="formations.showone")
