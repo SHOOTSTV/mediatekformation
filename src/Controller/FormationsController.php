@@ -85,7 +85,7 @@ class FormationsController extends AbstractController {
     }  
 
     /**
-     * @Route("/formations/recherche/{champ}", name="formations.findallcontain")
+     * @Route("admin/admin.formations/recherche/{champ}", name="adminformations.findallcontain")
      * @param type $champ
      * @param Request $request
      * @return Response
@@ -119,7 +119,7 @@ class FormationsController extends AbstractController {
     }
     
     /**
-     * @Route("/formations/recherche/niveau/{champ}", name="formations.findallbyniveau")
+     * @Route("admin/admin.formations/recherche/niveau/{champ}", name="adminformations.findallbyniveau")
      * @param type $champ
      * @param Request $request
      * @return Response
