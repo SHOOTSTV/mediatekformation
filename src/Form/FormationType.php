@@ -17,7 +17,8 @@ class FormationType extends AbstractType
         $builder
             ->add('publishedAt', null, [
                 'label' => 'Date de création :',
-                'required' => true
+                'required' => true,
+                'widget' => 'single_text'
             ])
             ->add('title', null, [
                 'label' => 'Titre :',
